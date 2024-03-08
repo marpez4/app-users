@@ -9,6 +9,24 @@ const db = new sqlite3.Database('./db/empleadosDB.sqlite');
 const dbPath = './db/empleadosDB.sqlite';
 
 
+const { checkToken } = require('../middleware');
+
+
+// ===================Api verifica token - Seguridad=========================
+router.post('/apiVerificaToken', checkToken, function(req, res, next) {
+  
+  //console.log(req.userId);
+  //console.log(req.rolId);
+  if(req.userId != undefined)
+  {
+    res.json({
+      successful:'Token Validado',
+      numero:'001'
+    });
+  }
+  
+});
+
 // Ruta principal para mostrar la lista de usuarios y el formulario de ingreso
 router.get('/', (req, res) => {
   const db = new sqlite3.Database(dbPath);
