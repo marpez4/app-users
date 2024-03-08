@@ -1,0 +1,42 @@
+html, body {
+  height: 100vh; /* Ajusta la altura al 100% de la altura de la ventana del navegador */
+  overflow: hidden; /* Evita el desplazamiento */
+  background-image: url('../imgs/fondo_sallejoven_arlep1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.btn-color {
+  background-color: #FF8108;
+  color: black;
+}
+.btn-color:hover {
+  background-color: #f5ceaa;
+  color: black;
+}
+.btn-color:active {
+  background-color: #FF8108!important;
+  color: black;
+}

@@ -6,8 +6,21 @@ const jwt = require('jwt-simple');
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/empleadosDB.sqlite');
+const dbPath = './db/empleadosDB.sqlite';
 
 
+// Ruta principal para mostrar la lista de usuarios y el formulario de ingreso
+router.get('/', (req, res) => {
+  const db = new sqlite3.Database(dbPath);
+  db.all("SELECT * FROM usuarios", [], (err, rows) => {
+    if (err) {
+      throw err;
+    }
+    // Pasar 'usuario' y un objeto 'usuarioSeleccionado' vacío si no estamos editando
+    res.render('usuarios', { usuarios: rows, usuarioSeleccionado: {} });
+  });
+  db.close();
+});
 // CRUD de usuarios
 
 // Crear usuario

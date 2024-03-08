@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
+const path = require('path');
+app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules', 'bootstrap', 'dist')));
+
 
 // Configuración de bodyParser para analizar el cuerpo de las solicitudes POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,12 +20,13 @@ app.set('views', './views');
 // Importación de rutas de empleados
 const empleadosRoutes = require('./routes/empleados');
 app.use('/empleados', empleadosRoutes);
+
 //Version 2.0 del codigo con AJAX
 const empleadosRoutesv2 = require('./routes/empleadosv2');
 app.use('/empleadosv2', empleadosRoutesv2);
 
 const usuariosRoutes = require('./routes/usuarios');
-app.use('/api', usuariosRoutes); 
+app.use('/usuarios', usuariosRoutes); 
 
 const loginRoutes = require('./routes/login');
 app.use('/login', loginRoutes); 

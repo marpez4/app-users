@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title>
+        <%= title %>
+    </title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="./css/login.css">
     <style>
         /* Tus estilos CSS van aquí */
     </style>
 </head>
+
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
+    <div style="margin-top: 12em;"></div>
+    <main class="form-signin w-100 m-auto">
+        <img class="mb-4" src="./imgs/lasalle-logo.png" alt="" width="320" height="125">
+
+        <h1 class="h3 mb-3 fw-normal text-white">Login</h1>
         <form id="loginForm">
-            <input type="text" name="usuario" placeholder="Usuario" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit">Iniciar Sesión</button>
+            <div class="form-floating">
+                <input type="text" class="form-control" name="usuario" id="floatingInput" placeholder="Usuario">
+                <label for="floatingInput">Usuario</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" name="password" id="floatingPassword"
+                    placeholder="Contraseña">
+                <label for="floatingPassword">Contraseña</label>
+            </div>
+            <button class="btn btn-primary w-100 py-2 btn-color" type="submit">Iniciar sesión</button>
         </form>
-        <div id="responseMessage"></div>
-    </div>
+        <div class="alert alert-danger" role="alert" id="responseMessage"></div>
+    </main>
 
     <script>
-        $(document).ready(function() {
-            $('#loginForm').on('submit', function(e) {
+
+
+        $(document).ready(function () {
+            $('#responseMessage').hide();
+
+            $('#loginForm').on('submit', function (e) {
                 e.preventDefault();
 
 
@@ -42,22 +63,35 @@
                     dataType: 'json',
                     encode: true
                 })
-                .done(function(data) {
-                    if(data.error) {
-                        $('#responseMessage').text(data.error).css('color', 'red');
-                    } else {
-                        $('#responseMessage').text(data.done).css('color', 'green');
-                        // Aquí puedes redirigir al usuario o manejar el inicio de sesión como prefieras
-                        // Por ejemplo, guardar el token en localStorage y redirigir:
-                         localStorage.setItem('token', JSON.stringify(data));
-                         window.location.href = '/empleados';
-                    }
-                })
-                .fail(function(data) {
-                    $('#responseMessage').text('Error al procesar la solicitud.').css('color', 'red');
-                });
+                    .done(function (data) {
+                        if (data.error) {
+                            $('#responseMessage')
+                                .text(data.error)
+                                .removeClass('alert-success')
+                                .addClass('alert-danger')
+                                .show();
+                        } else {
+                            $('#responseMessage')
+                                .text(data.done)
+                                .removeClass('alert-danger')
+                                .addClass('alert-success')
+                                .show();
+                            // Aquí puedes redirigir al usuario o manejar el inicio de sesión como prefieras
+                            // Por ejemplo, guardar el token en localStorage y redirigir:
+                            localStorage.setItem('token', JSON.stringify(data));
+                            window.location.href = '/usuarios';
+                        }
+                    })
+                    .fail(function (data) {
+                        $('#responseMessage')
+                            .text('Error al procesar la solicitud.')
+                            .removeClass('alert-success')
+                            .addClass('alert-danger')
+                            .show();
+                    });
             });
         });
     </script>
 </body>
+
 </html>
